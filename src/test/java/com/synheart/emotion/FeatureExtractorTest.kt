@@ -79,8 +79,8 @@ class FeatureExtractorTest {
         
         val features = FeatureExtractor.extractFeatures(hrValues, rrIntervals, motion)
         
-        assertEquals(0.5, features["accel_x"], 0.01)
-        assertEquals(0.3, features["accel_y"], 0.01)
+        assertEquals(0.5, features["accel_x"]!!, 0.01)
+        assertEquals(0.3, features["accel_y"]!!, 0.01)
     }
 
     @Test

@@ -141,7 +141,7 @@ class EmotionEngineTest {
         
         assertEquals(0, stats["count"])
         assertEquals(0L, stats["duration_ms"])
-        assertEquals(0, (stats["hr_range"] as List<*>)[0])
+        assertEquals(0.0, (stats["hr_range"] as List<*>)[0])
         assertEquals(0, stats["rr_count"])
     }
 
@@ -171,11 +171,12 @@ class EmotionEngineTest {
     fun `trimBuffer removes old data outside window`() {
         val config = EmotionConfig(windowMs = 5000L) // 5 second window
         val engine = EmotionEngine.fromPretrained(config)
-        val baseTime = System.currentTimeMillis()
+        val now = System.currentTimeMillis()
         
-        // Push data points over 10 seconds
+        // Push data points: some old (should be removed) and some recent (should be kept)
         for (i in 0..10) {
-            val timestamp = Date(baseTime + i * 1000)
+            // Create timestamps going backwards from now
+            val timestamp = Date(now - (10 - i) * 1000)
             engine.push(
                 hr = 72.0,
                 rrIntervalsMs = listOf(800.0, 850.0),
@@ -183,10 +184,11 @@ class EmotionEngineTest {
             )
         }
         
-        // Wait a bit and check buffer
+        // Check buffer - should only have data within the 5 second window
         val stats = engine.getBufferStats()
-        // Should only have data within the 5 second window
-        assertTrue(stats["count"] as Int <= 6) // Some margin for timing
+        // Data from last 5 seconds (indices 6-10) should remain, that's 5 data points
+        // Add some margin for timing
+        assertTrue((stats["count"] as Int) <= 6)
     }
 }
 
