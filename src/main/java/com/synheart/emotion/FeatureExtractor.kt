@@ -118,9 +118,14 @@ object FeatureExtractor {
             if (rr < MIN_VALID_RR_MS || rr > MAX_VALID_RR_MS) continue
 
             // Skip large jumps that likely indicate artifacts
+            var skipDueToJump = false
             prevValue?.let { prev ->
-                if (abs(rr - prev) > MAX_RR_JUMP_MS) return@let
+                if (abs(rr - prev) > MAX_RR_JUMP_MS) {
+                    skipDueToJump = true
+                }
             }
+            
+            if (skipDueToJump) continue
 
             cleaned.add(rr)
             prevValue = rr

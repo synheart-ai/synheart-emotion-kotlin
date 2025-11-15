@@ -36,7 +36,7 @@ class EmotionConfigTest {
         assertEquals(10000L, config.stepMs)
         assertEquals(50, config.minRrCount)
         assertFalse(config.returnAllProbas)
-        assertEquals(70.0, config.hrBaseline, 0.01)
+        assertEquals(70.0, config.hrBaseline!!, 0.01)
         assertEquals(priors, config.priors)
     }
 
