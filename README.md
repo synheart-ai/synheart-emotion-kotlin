@@ -3,6 +3,8 @@
 [![Android API 21+](https://img.shields.io/badge/API-21%2B-brightgreen.svg)](https://android-arsenal.com/api?level=21)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.8%2B-blue.svg)](https://kotlinlang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Release](https://github.com/synheart-ai/synheart-emotion-android/actions/workflows/release.yml/badge.svg)](https://github.com/synheart-ai/synheart-emotion-android/actions/workflows/release.yml)
+[![](https://jitpack.io/v/synheart-ai/synheart-emotion-android.svg)](https://jitpack.io/#synheart-ai/synheart-emotion-android)
 
 On-device emotion inference from biosignals (heart rate and RR intervals) for Android applications.
 
@@ -22,9 +24,32 @@ On-device emotion inference from biosignals (heart rate and RR intervals) for An
 
 ## Installation
 
-Add the library to your Android project:
+### Option 1: JitPack (Recommended)
 
-### Gradle
+Add JitPack repository to your root `settings.gradle` or `build.gradle`:
+
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+Then add the dependency:
+
+```kotlin
+dependencies {
+    implementation("com.github.synheart-ai:synheart-emotion-android:0.1.0")
+}
+```
+
+Replace `0.1.0` with the latest release version from [GitHub Releases](https://github.com/synheart-ai/synheart-emotion-android/releases).
+
+### Option 2: Maven Central
 
 ```kotlin
 dependencies {
@@ -32,7 +57,9 @@ dependencies {
 }
 ```
 
-Or include as a local module in your Android project.
+### Option 3: Local Module
+
+Include as a local module in your Android project.
 
 ### Verify Installation
 
